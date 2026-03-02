@@ -1,0 +1,37 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Dataset (downloaded automatically by torchvision)
+data/
+
+# Saved model weights
+checkpoints/*.pt
+checkpoints/*.pth
+checkpoints/*.npy
+
+# Logs and output plots
+logs/*.log
+logs/*.png
+
+# macOS
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+
+# Pytest cache & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Distribution / packaging (not used in this project)
+dist/
+build/
+*.egg-info/
