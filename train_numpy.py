@@ -13,16 +13,22 @@ from src.training.cross_val import (
 
 def build_model():
     layers = [
-        Layer_Dense(784, 256, weight_regularizer_l2=5e-4, bias_regularizer_l2=5e-4),
+        Layer_Dense(784, 512, weight_regularizer_l2=5e-4, bias_regularizer_l2=5e-4),
         Activation_ReLU(),
-        Layer_Dropout(0.1),
+        Layer_Dropout(0.05),
+        Layer_Dense(512, 512, weight_regularizer_l2=5e-4, bias_regularizer_l2=5e-4),
+        Activation_ReLU(),
+        Layer_Dropout(0.05),
+        Layer_Dense(512, 256, weight_regularizer_l2=5e-4, bias_regularizer_l2=5e-4),
+        Activation_ReLU(),
+        Layer_Dropout(0.05),
         Layer_Dense(256, 128, weight_regularizer_l2=5e-4, bias_regularizer_l2=5e-4),
         Activation_ReLU(),
-        Layer_Dropout(0.1),
+        Layer_Dropout(0.05),
         Layer_Dense(128, 10),
     ]
     loss_activation = Activation_Softmax_Loss_CategoricalCrossentropy()
-    optimizer = Optimizer_Adam(learning_rate=0.001, decay=1e-4)
+    optimizer = Optimizer_Adam(learning_rate=0.0005, decay=1e-5)
     return layers, loss_activation, optimizer
 
 
@@ -37,8 +43,8 @@ fold_results = run_cross_validation(
     X=X_train,
     y=y_train,
     k=5,
-    epochs=10,
-    batch_size=256,
+    epochs=20,
+    batch_size=128,
 )
 
 print("\n" + "=" * 60)
@@ -46,7 +52,14 @@ print("Final Training on Full Training Set  (15 epochs)")
 print("=" * 60)
 
 layers, loss_activation, optimizer = build_model()
-train_model(layers, loss_activation, optimizer, X_train, y_train, epochs=15, batch_size=256)
+train_model(layers, loss_activation, optimizer, X_train, y_train, epochs=50, batch_size=128)
+
+print("\n" + "=" * 60)
+print("Final Evaluation on Test Set")
+print("=" * 60)
+
+test_loss, test_acc, test_predictions = evaluate_model(layers, loss_activation, X_test, y_test)
+print(f"Test Loss: {test_loss:.4f}  Test Accuracy: {test_acc:.4f}")
 
 print("\n" + "=" * 60)
 print("Test Set Evaluation")

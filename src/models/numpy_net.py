@@ -138,7 +138,7 @@ class Activation_Softmax_Loss_CategoricalCrossentropy:
 
 
 class Optimizer_Adam:
-    def __init__(self, learning_rate=0.001, decay=0.0, eps=1e-7, beta1=0.9, beta2=0.999):
+    def __init__(self, learning_rate=0.001, decay=0.0, eps=1e-5, beta1=0.9, beta2=0.999):
         self.learning_rate = learning_rate
         self.current_learning_rate = learning_rate
         self.decay = decay
