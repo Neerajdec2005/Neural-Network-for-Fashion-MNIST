@@ -37,7 +37,7 @@ All layers are implemented manually in NumPy:
 | `Activation_Softmax` + `Loss_CategoricalCrossentropy` | Fused for numerically stable backprop |
 | `Optimizer_Adam` | Bias-corrected Adam with inverse learning rate decay |
 
-Network: `784 → 256 → 128 → 10`
+Network: `784 → 512 → 512 → 256 → 128 → 10`
 
 ---
 
@@ -59,9 +59,9 @@ python3 train_numpy.py
 
 This will:
 1. Download Fashion MNIST automatically
-2. Run **5-fold cross-validation** on 60,000 training samples (10 epochs per fold)
-3. Retrain on the full training set (15 epochs)
-4. Report per-class accuracy on the 10,000-sample test set
+2. Run **5-fold cross-validation** on 60,000 training samples (20 epochs per fold)
+3. Retrain on the full training set (50 epochs)
+4. Report accuracy on the 10,000-sample test set
 
 ---
 
@@ -71,13 +71,13 @@ All hyperparameters are set inside `train_numpy.py` in the `build_model()` funct
 
 | Parameter | Value |
 |---|---|
-| Hidden layers | 784 → 256 → 128 → 10 |
+| Hidden layers | 784 → 512 → 512 → 256 → 128 → 10 |
 | L2 regularization | `5e-4` |
-| Dropout rate | `0.1` |
-| Learning rate | `0.001` |
-| LR decay | `1e-4` |
+| Dropout rate | `0.05` |
+| Learning rate | `0.0005` |
+| LR decay | `1e-5` |
 | Adam β₁ / β₂ | `0.9` / `0.999` |
-| Batch size | `256` |
+| Batch size | `128` |
 | CV folds | `5` |
 
 ---
@@ -86,7 +86,7 @@ All hyperparameters are set inside `train_numpy.py` in the `build_model()` funct
 
 | Metric | Value |
 |---|---|
-| Test Accuracy | ~97.1% |
+| Test Accuracy | ~89.5% |
 | Optimizer | Adam with LR decay |
 | Validation strategy | 5-fold cross-validation |
 

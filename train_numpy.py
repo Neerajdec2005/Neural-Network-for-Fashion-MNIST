@@ -35,7 +35,7 @@ def build_model():
 X_train, y_train, X_test, y_test = load_fashion_mnist()
 
 print("=" * 60)
-print("5-Fold Cross Validation  (10 epochs per fold)")
+print("5-Fold Cross Validation  (20 epochs per fold)")
 print("=" * 60)
 
 fold_results = run_cross_validation(
@@ -48,7 +48,7 @@ fold_results = run_cross_validation(
 )
 
 print("\n" + "=" * 60)
-print("Final Training on Full Training Set  (15 epochs)")
+print("Final Training on Full Training Set  (50 epochs)")
 print("=" * 60)
 
 layers, loss_activation, optimizer = build_model()
